@@ -4,15 +4,28 @@
  */
 package lab9p2_diegorosales;
 
+import java.util.Date;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Diego
  */
 public class HoraThread implements Runnable{
     
+    JLabel jl;
+    
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        while(true){
+        Date a = new Date();
+        
+        jl.setText(a.getHours()+""+":"+a.getMinutes()+""+":"+a.getSeconds()+"");
+        }
+    }
+
+    public HoraThread(JLabel jl) {
+        this.jl =jl;
     }
     
 }

@@ -4,6 +4,15 @@
  */
 package lab9p2_diegorosales;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Diego
@@ -13,11 +22,15 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    String path="";
     public Main() {
         initComponents();
         FechaThread a = new FechaThread(jl_fechahoy);
         Thread ta = new Thread(a);
         ta.start();
+        HoraThread b = new HoraThread(jl_horaactual);
+        Thread tb = new Thread(b);
+        tb.start();
     }
 
     /**
@@ -43,6 +56,7 @@ public class Main extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ta_archivo = new javax.swing.JTextArea();
+        bt_guardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -65,6 +79,9 @@ public class Main extends javax.swing.JFrame {
 
         jl_fechahoy.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jl_fechahoy.setForeground(new java.awt.Color(0, 0, 0));
+
+        jl_horaactual.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jl_horaactual.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -102,6 +119,11 @@ public class Main extends javax.swing.JFrame {
         jLabel4.setText("BOROA CLOUD");
 
         bt_subirarchivo.setText("Subir Archivo");
+        bt_subirarchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_subirarchivoMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("subiendo archivo...");
@@ -113,6 +135,13 @@ public class Main extends javax.swing.JFrame {
         ta_archivo.setColumns(20);
         ta_archivo.setRows(5);
         jScrollPane1.setViewportView(ta_archivo);
+
+        bt_guardar.setText("GUARDAR");
+        bt_guardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_guardarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,8 +169,11 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jLabel6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(69, 69, 69)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(178, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(204, 204, 204)
+                                .addComponent(bt_guardar)))
+                        .addContainerGap(175, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,14 +190,54 @@ public class Main extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bt_guardar)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bt_subirarchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_subirarchivoMouseClicked
+       File archivo = null;
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Texto :D", "txt");
+        jfc.setFileFilter(filter);
+        int selec = jfc.showOpenDialog(this);
+        
+            if (selec == JFileChooser.APPROVE_OPTION){
+                archivo = jfc.getSelectedFile();
+                 path = jfc.getSelectedFile().getPath();
+                ProgressBarThread c = new ProgressBarThread(jpb_subiendoarchivo,archivo,path, ta_archivo);
+               
+                Thread tc = new Thread(c);
+                tc.start();
+                }
+            
+           
+            
+
+           
+            
+           
+    }//GEN-LAST:event_bt_subirarchivoMouseClicked
+
+    private void bt_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_guardarMouseClicked
+        AdminArchivos adm = new AdminArchivos(path, ta_archivo);
+        try {
+            adm.escribirArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showConfirmDialog(this, "Has guardado el archivo!");
+        ta_archivo.setText("");
+        jpb_subiendoarchivo.setValue(0);
+                
+    
+    }//GEN-LAST:event_bt_guardarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -203,6 +275,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_guardar;
     private javax.swing.JButton bt_subirarchivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
