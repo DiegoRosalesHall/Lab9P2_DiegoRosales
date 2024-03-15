@@ -53,7 +53,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jpb_subiendoarchivo" min="-2" pref="200" max="-2" attributes="0"/>
                                       <Component id="bt_subirarchivo" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jl_subiendoarchivo" min="-2" pref="140" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -89,7 +89,7 @@
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="bt_subirarchivo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <Component id="jl_subiendoarchivo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jpb_subiendoarchivo" min="-2" pref="20" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
@@ -222,7 +222,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_subirarchivoMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="jl_subiendoarchivo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>

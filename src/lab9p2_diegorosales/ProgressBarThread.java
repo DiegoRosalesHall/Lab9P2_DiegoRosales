@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,11 +21,12 @@ public class ProgressBarThread implements Runnable{
     File archivo = null;
     String path;
     JTextArea ta;
-    
+    JLabel sub;
     @Override
     public void run() {
         bar.setValue(0);
         int cont=1;
+        int cont2=1;
         while(cont<=100){
             bar.setValue(bar.getValue()+1);
                 
@@ -35,8 +37,22 @@ public class ProgressBarThread implements Runnable{
             }
             
             cont++;
+            if(cont2==3){
+                sub.setText("subiendo archivo.");
+            }
+            else if(cont2==6){
+                sub.setText("subiendo archivo..");
+            }
+            else if(cont2==9){
+                sub.setText("subiendo archivo...");
+            }
             
+            if(cont2==9){
+                cont2=1;
+            }
+            cont2++;
         }
+        sub.setText("subiendo archivo...");
         
         
         
@@ -55,11 +71,12 @@ public class ProgressBarThread implements Runnable{
 
    
 
-    public ProgressBarThread(JProgressBar bar, File archivo, String path, JTextArea ta) {
+    public ProgressBarThread(JProgressBar bar, File archivo, String path, JTextArea ta, JLabel sub) {
         this.bar = bar;
         this.archivo = archivo;
         this.path = path;
         this.ta = ta;
+        this.sub=sub;
     }
     
     

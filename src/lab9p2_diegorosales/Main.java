@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         jl_horaactual = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         bt_subirarchivo = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jl_subiendoarchivo = new javax.swing.JLabel();
         jpb_subiendoarchivo = new javax.swing.JProgressBar();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -125,8 +125,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("subiendo archivo...");
+        jl_subiendoarchivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jl_subiendoarchivo.setText("subiendo archivo...");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -160,7 +160,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jpb_subiendoarchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(bt_subirarchivo)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jl_subiendoarchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +184,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(bt_subirarchivo)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel5)
+                .addComponent(jl_subiendoarchivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpb_subiendoarchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
@@ -211,7 +211,7 @@ public class Main extends javax.swing.JFrame {
             if (selec == JFileChooser.APPROVE_OPTION){
                 archivo = jfc.getSelectedFile();
                  path = jfc.getSelectedFile().getPath();
-                ProgressBarThread c = new ProgressBarThread(jpb_subiendoarchivo,archivo,path, ta_archivo);
+                ProgressBarThread c = new ProgressBarThread(jpb_subiendoarchivo,archivo,path, ta_archivo,jl_subiendoarchivo);
                
                 Thread tc = new Thread(c);
                 tc.start();
@@ -232,7 +232,7 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showConfirmDialog(this, "Has guardado el archivo!");
+        JOptionPane.showMessageDialog(this, "Has guardado el archivo!");
         ta_archivo.setText("");
         jpb_subiendoarchivo.setValue(0);
                 
@@ -281,13 +281,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jl_fechahoy;
     private javax.swing.JLabel jl_horaactual;
+    private javax.swing.JLabel jl_subiendoarchivo;
     private javax.swing.JProgressBar jpb_subiendoarchivo;
     private javax.swing.JTextArea ta_archivo;
     // End of variables declaration//GEN-END:variables
